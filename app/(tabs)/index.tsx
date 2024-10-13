@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import { selectFetchedLaunches } from '@/redux/slices/launches.slices';
 import { useSelector } from 'react-redux';
 import { useTheme } from '@react-navigation/native';
+import { ThemedActivityIndicator } from '@/components/ThemedActivityIndicator';
 
 export default function HomeScreen() {
   const [postLaunches, { data, isLoading }] = usePostLaunchesMutation();
@@ -31,7 +32,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       {isLoading && launches.length === 0 ? (
-        <ActivityIndicator size="small" color={'#fff'} />
+        <ThemedActivityIndicator />
       ) : (
         <FlatList
           data={launches}
@@ -44,9 +45,7 @@ export default function HomeScreen() {
           onEndReached={() =>
             data?.hasNextPage === true && postLaunches(data?.nextPage)
           }
-          ListFooterComponent={
-            isLoading && <ActivityIndicator size="small" color={'#fff'} />
-          }
+          ListFooterComponent={isLoading && <ThemedActivityIndicator />}
         />
       )}
     </View>
