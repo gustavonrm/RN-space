@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { selectFetchedLaunches } from '@/redux/slices/launches.slices';
 import { useSelector } from 'react-redux';
 import { ThemedActivityIndicator } from '@/components/common/ThemedActivityIndicator';
+import { LaunchCard } from '@/components/launches/LaunchCard';
 
 export default function HomeScreen() {
   const [postLaunches, { data, isLoading }] = usePostLaunchesMutation();
@@ -25,9 +26,12 @@ export default function HomeScreen() {
         <FlatList
           data={launches}
           renderItem={({ item }) => (
-            <ThemedText>
-              {item.name} {item.date_utc} {item.success} {item.rocket}
-            </ThemedText>
+            <LaunchCard
+              name={item.name}
+              date_utc={item.date_utc}
+              success={item.success}
+              rocket={item.rocket}
+            />
           )}
           keyExtractor={(item) => item.id}
           onEndReached={() =>
@@ -43,8 +47,5 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
   },
 });
