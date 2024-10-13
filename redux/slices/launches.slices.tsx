@@ -1,36 +1,31 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-export interface CounterState {
-  value: number;
+export interface LaunchesState {
+  fetched: [];
+  favorites: [];
 }
 
-const initialState: CounterState = {
-  value: 0,
+const initialState: LaunchesState = {
+  fetched: [],
+  favorites: [],
 };
 
 export const launchesSlice = createSlice({
   name: 'launches',
   initialState,
   reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
+    setLaunches: (state, action) => {
+      state[action.payload.type] = state[action.payload.type].concat(
+        action.payload.data
+      );
     },
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } =
-  launchesSlice.actions;
+export const { setLaunches } = launchesSlice.actions;
 
 export default launchesSlice.reducer;
+
+export const selectFetchedLaunches = (state) => state.launches.fetched;
+export const selectFavoriteLaunches = (state) => state.launches.favorite;

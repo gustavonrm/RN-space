@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { setLaunches } from '../slices/launches.slices';
 
 export const launchesApi = createApi({
   reducerPath: 'launchesApi',
@@ -7,14 +8,20 @@ export const launchesApi = createApi({
   }),
   endpoints: (builder) => ({
     postLaunches: builder.mutation({
-      query: () => ({
+      query: (page) => ({
         url: '/launches/query',
         method: 'POST',
+        body: {
+          query: {},
+          options: {
+            page: page,
+          },
+        },
       }),
-      async onQueryStarted({ queryFulfilled }) {
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log(data);
+          dispatch(setLaunches({ type: 'fetched', data: data.docs }));
         } catch (error) {
           console.log(error);
         }
