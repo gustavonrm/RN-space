@@ -3,7 +3,6 @@ import { View, Text, StyleSheet } from 'react-native';
 import { ThemedText } from '../common/ThemedText';
 
 export function LaunchCard({ name, date_utc, success, rocket }) {
-  console.log(success);
   return (
     <View style={styles.container}>
       <ThemedText>{name}</ThemedText>

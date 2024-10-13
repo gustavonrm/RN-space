@@ -30,7 +30,7 @@ export default function HomeScreen() {
               name={item.name}
               date_utc={item.date_utc}
               success={item.success}
-              rocket={item.rocket}
+              rocket={item.rocket.name}
             />
           )}
           keyExtractor={(item) => item.id}
