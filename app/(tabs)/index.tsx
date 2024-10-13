@@ -1,23 +1,11 @@
-import {
-  Image,
-  StyleSheet,
-  Platform,
-  Text,
-  View,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { ThemedText } from '@/components/common/ThemedText';
 import { usePostLaunchesMutation } from '@/redux/apis/launches.api';
 import { useEffect, useState } from 'react';
 import { selectFetchedLaunches } from '@/redux/slices/launches.slices';
 import { useSelector } from 'react-redux';
-import { useTheme } from '@react-navigation/native';
-import { ThemedActivityIndicator } from '@/components/ThemedActivityIndicator';
+import { ThemedActivityIndicator } from '@/components/common/ThemedActivityIndicator';
 
 export default function HomeScreen() {
   const [postLaunches, { data, isLoading }] = usePostLaunchesMutation();
