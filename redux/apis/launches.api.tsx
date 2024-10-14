@@ -50,7 +50,14 @@ export const launchesApi = createApi({
     getRocket: builder.query({
       query: (id) => `/v4/rockets/${id}`,
     }),
+    getLauchDetails: builder.query({
+      query: (id) => `/v5/launches/${id}`,
+    }),
   }),
 });
 
-export const { usePostLaunchesMutation, useGetRocketQuery } = launchesApi;
+export const {
+  usePostLaunchesMutation,
+  useGetRocketQuery,
+  useGetLauchDetailsQuery,
+} = launchesApi;
