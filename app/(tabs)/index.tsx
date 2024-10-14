@@ -7,6 +7,7 @@ import { selectFetchedLaunches } from '@/redux/slices/launches.slices';
 import { useSelector } from 'react-redux';
 import { ThemedActivityIndicator } from '@/components/common/ThemedActivityIndicator';
 import { LaunchCard } from '@/components/launches/LaunchCard';
+import { Filters } from '@/components/launches/Filters';
 
 export default function HomeScreen() {
   const [postLaunches, { data, isLoading }] = usePostLaunchesMutation();
@@ -23,22 +24,25 @@ export default function HomeScreen() {
       {isLoading && launches.length === 0 ? (
         <ThemedActivityIndicator />
       ) : (
-        <FlatList
-          data={launches}
-          renderItem={({ item }) => (
-            <LaunchCard
-              name={item.name}
-              date_utc={item.date_utc}
-              success={item.success}
-              rocket={item.rocket.name}
-            />
-          )}
-          keyExtractor={(item) => item.id}
-          onEndReached={() =>
-            data?.hasNextPage === true && postLaunches(data?.nextPage)
-          }
-          ListFooterComponent={isLoading && <ThemedActivityIndicator />}
-        />
+        <>
+          <Filters />
+          <FlatList
+            data={launches}
+            renderItem={({ item }) => (
+              <LaunchCard
+                name={item.name}
+                date_utc={item.date_utc}
+                success={item.success}
+                rocket={item.rocket.name}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+            onEndReached={() =>
+              data?.hasNextPage === true && postLaunches(data?.nextPage)
+            }
+            ListFooterComponent={isLoading && <ThemedActivityIndicator />}
+          />
+        </>
       )}
     </View>
   );

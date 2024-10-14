@@ -3,8 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { ThemedText } from '../common/ThemedText';
 
 export function LaunchCard({ name, date_utc, success, rocket }) {
-  console.log(date_utc);
-
   const date = new Date(date_utc);
 
   const year = date.getUTCFullYear();

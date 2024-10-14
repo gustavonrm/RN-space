@@ -8,10 +8,14 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { store } from '@/redux/store';
-import { Image } from 'react-native';
+import { Image, Touchable, TouchableOpacity } from 'react-native';
+import { ThemedText } from '@/components/common/ThemedText';
+import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { useThemeColor } from '@/hooks/useThemeColor';
+import { FilterButton } from '@/components/common/FilterButton';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -40,6 +44,7 @@ export default function RootLayout() {
             name="(tabs)"
             options={{
               headerTitle: 'Mission Control',
+              headerRight: () => <FilterButton />,
             }}
           />
           <Stack.Screen name="+not-found" />

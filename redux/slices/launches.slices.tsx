@@ -4,11 +4,13 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 export interface LaunchesState {
   fetched: [];
   favorites: [];
+  filtering: boolean;
 }
 
 const initialState: LaunchesState = {
   fetched: [],
   favorites: [],
+  filtering: false,
 };
 
 export const launchesSlice = createSlice({
@@ -20,12 +22,17 @@ export const launchesSlice = createSlice({
         action.payload.data
       );
     },
+    setFiltering: (state, action) => {
+      console.log(action);
+      state.filtering = !state.filtering;
+    },
   },
 });
 
-export const { setLaunches } = launchesSlice.actions;
+export const { setLaunches, setFiltering } = launchesSlice.actions;
 
 export default launchesSlice.reducer;
 
 export const selectFetchedLaunches = (state) => state.launches.fetched;
 export const selectFavoriteLaunches = (state) => state.launches.favorite;
+export const selectFiltering = (state) => state.launches.filtering;
