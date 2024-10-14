@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { ThemedText } from '../common/ThemedText';
+import { useNavigation } from 'expo-router';
 
-export function LaunchCard({ name, date_utc, success, rocket }) {
+export function LaunchCard({ id, name, date_utc, success, rocket }) {
   const date = new Date(date_utc);
 
   const year = date.getUTCFullYear();
@@ -25,6 +26,8 @@ export function LaunchCard({ name, date_utc, success, rocket }) {
 
   const formattedDate = `${month} ${day}, ${year}`;
 
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -36,7 +39,10 @@ export function LaunchCard({ name, date_utc, success, rocket }) {
             {'Overview'}
           </ThemedText>
         </View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('preview', { id: id })}
+        >
           <ThemedText style={styles.line}>Learn More</ThemedText>
         </TouchableOpacity>
       </View>

@@ -30,6 +30,7 @@ export default function HomeScreen() {
             data={launches}
             renderItem={({ item }) => (
               <LaunchCard
+                id={item.id}
                 name={item.name}
                 date_utc={item.date_utc}
                 success={item.success}
