@@ -1,21 +1,52 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { ThemedText } from '../common/ThemedText';
 
 export function LaunchCard({ name, date_utc, success, rocket }) {
+  console.log(date_utc);
+
+  const date = new Date(date_utc);
+
+  const year = date.getUTCFullYear();
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  const month = monthNames[date.getUTCMonth()];
+  const day = String(date.getUTCDate()).padStart(2, '0');
+
+  const formattedDate = `${month} ${day}, ${year}`;
+
   return (
     <View style={styles.container}>
-      <ThemedText style={styles.mission} type="subtitle">
-        {name}
-      </ThemedText>
-      <ThemedText style={styles.overview} type="title">
-        {'Overview'}
-      </ThemedText>
+      <View style={styles.header}>
+        <View>
+          <ThemedText style={styles.mission} type="subtitle">
+            {name}
+          </ThemedText>
+          <ThemedText style={styles.overview} type="title">
+            {'Overview'}
+          </ThemedText>
+        </View>
+        <TouchableOpacity style={styles.button}>
+          <ThemedText style={styles.line}>Learn More</ThemedText>
+        </TouchableOpacity>
+      </View>
       <View style={styles.row}>
         <ThemedText style={styles.line} type="defaultSemiBold">
           {'Date'}
         </ThemedText>
-        <ThemedText style={styles.info}>{date_utc}</ThemedText>
+        <ThemedText style={styles.info}>{formattedDate}</ThemedText>
       </View>
       <View style={styles.row}>
         <ThemedText style={styles.line} type="defaultSemiBold">
@@ -51,6 +82,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     marginVertical: 5,
     fontSize: 13,
+    fontWeight: 600,
   },
   row: {
     flexDirection: 'row',
@@ -59,8 +91,20 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginVertical: 5,
   },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   info: {
     textTransform: 'uppercase',
     fontWeight: 600,
+  },
+  button: {
+    borderWidth: 2,
+    borderColor: 'white',
+    paddingVertical: 5,
+    paddingHorizontal: 30,
+    marginBottom: 20,
   },
 });
